@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電気料金シミュレーター | お得なプランを見つけよう</title>
+    <meta name="description" content="電気料金を簡単にシミュレーション。現在の料金と比較して、最適なプランを見つけましょう。">
+    <meta name="keywords" content="電気料金,シミュレーション,節約,電力会社,料金比較">
+    <meta name="author" content="電気料金シミュレーター">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">電気料金シミュレーター</span>
+                </div>
+                <nav class="nav">
+                    <a href="#simulator" class="nav-link">シミュレーション</a>
+                    <a href="#about" class="nav-link">料金プランについて</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main">
+        <!-- ヒーローセクション -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">電気料金を<br><span class="highlight">最大30%削減</span></h1>
+                    <p class="hero-description">簡単な入力で、あなたにピッタリの電気プランを見つけます</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">💰</span>
+                            <span class="feature-text">年間最大36,000円お得</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span class="feature-text">切替手続き無料</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔒</span>
+                            <span class="feature-text">安心の大手企業</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- シミュレーターセクション -->
+        <section id="simulator" class="simulator">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">料金シミュレーション</h2>
+                    <p class="section-description">現在の電気料金を入力して、お得なプランを見つけましょう</p>
+                </div>
+
+                <!-- 入力モード切り替え -->
+                <div class="mode-toggle">
+                    <button class="mode-btn active" data-mode="simple">簡易入力</button>
+                    <button class="mode-btn" data-mode="detailed">詳細入力</button>
+                </div>
+
+                <!-- 入力フォーム -->
+                <div class="input-section">
+                    <!-- 簡易入力モード -->
+                    <form id="simple-form" class="input-form active">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="postal-code" class="form-label">郵便番号</label>
+                                <input type="text" id="postal-code" class="form-input" placeholder="123-4567" pattern="\d{3}-\d{4}">
+                                <div class="form-hint">電力エリアの判定に使用します</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="current-company" class="form-label">現在の電力会社</label>
+                                <select id="current-company" class="form-select">
+                                    <option value="">選択してください</option>
+                                    <option value="tepco">東京電力</option>
+                                    <option value="kansai">関西電力</option>
+                                    <option value="chubu">中部電力</option>
+                                    <option value="tohoku">東北電力</option>
+                                    <option value="kyushu">九州電力</option>
+                                    <option value="chugoku">中国電力</option>
+                                    <option value="shikoku">四国電力</option>
+                                    <option value="hokkaido">北海道電力</option>
+                                    <option value="hokuriku">北陸電力</option>
+                                    <option value="okinawa">沖縄電力</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">世帯人数</label>
+                                <div class="button-group">
+                                    <button type="button" class="option-btn" data-household="1">1人</button>
+                                    <button type="button" class="option-btn" data-household="2">2人</button>
+                                    <button type="button" class="option-btn" data-household="3">3人</button>
+                                    <button type="button" class="option-btn" data-household="4">4人以上</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="current-bill" class="form-label">現在の月額電気料金</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="current-bill" class="form-input" placeholder="8000" min="0">
+                                    <span class="input-suffix">円</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">シミュレーション実行</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+
+                    <!-- 詳細入力モード -->
+                    <form id="detailed-form" class="input-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="postal-code-detailed" class="form-label">郵便番号</label>
+                                <input type="text" id="postal-code-detailed" class="form-input" placeholder="123-4567" pattern="\d{3}-\d{4}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="current-company-detailed" class="form-label">現在の電力会社</label>
+                                <select id="current-company-detailed" class="form-select">
+                                    <option value="">選択してください</option>
+                                    <option value="tepco">東京電力</option>
+                                    <option value="kansai">関西電力</option>
+                                    <option value="chubu">中部電力</option>
+                                    <option value="tohoku">東北電力</option>
+                                    <option value="kyushu">九州電力</option>
+                                    <option value="chugoku">中国電力</option>
+                                    <option value="shikoku">四国電力</option>
+                                    <option value="hokkaido">北海道電力</option>
+                                    <option value="hokuriku">北陸電力</option>
+                                    <option value="okinawa">沖縄電力</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">契約アンペア数</label>
+                                <div class="button-group">
+                                    <button type="button" class="option-btn" data-ampere="20">20A</button>
+                                    <button type="button" class="option-btn" data-ampere="30">30A</button>
+                                    <button type="button" class="option-btn" data-ampere="40">40A</button>
+                                    <button type="button" class="option-btn" data-ampere="50">50A</button>
+                                    <button type="button" class="option-btn" data-ampere="60">60A</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="usage-input">
+                            <h3 class="usage-title">月別使用量（直近12ヶ月）</h3>
+                            <div class="usage-chart-container">
+                                <canvas id="usage-input-chart"></canvas>
+                            </div>
+                            <div class="usage-grid">
+                                <div class="usage-item">
+                                    <label for="usage-1" class="usage-label">1月</label>
+                                    <input type="number" id="usage-1" class="usage-input-field" placeholder="400" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-2" class="usage-label">2月</label>
+                                    <input type="number" id="usage-2" class="usage-input-field" placeholder="380" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-3" class="usage-label">3月</label>
+                                    <input type="number" id="usage-3" class="usage-input-field" placeholder="350" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-4" class="usage-label">4月</label>
+                                    <input type="number" id="usage-4" class="usage-input-field" placeholder="300" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-5" class="usage-label">5月</label>
+                                    <input type="number" id="usage-5" class="usage-input-field" placeholder="280" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-6" class="usage-label">6月</label>
+                                    <input type="number" id="usage-6" class="usage-input-field" placeholder="320" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-7" class="usage-label">7月</label>
+                                    <input type="number" id="usage-7" class="usage-input-field" placeholder="450" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-8" class="usage-label">8月</label>
+                                    <input type="number" id="usage-8" class="usage-input-field" placeholder="480" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-9" class="usage-label">9月</label>
+                                    <input type="number" id="usage-9" class="usage-input-field" placeholder="400" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-10" class="usage-label">10月</label>
+                                    <input type="number" id="usage-10" class="usage-input-field" placeholder="320" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-11" class="usage-label">11月</label>
+                                    <input type="number" id="usage-11" class="usage-input-field" placeholder="350" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                                <div class="usage-item">
+                                    <label for="usage-12" class="usage-label">12月</label>
+                                    <input type="number" id="usage-12" class="usage-input-field" placeholder="420" min="0">
+                                    <span class="usage-unit">kWh</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">詳細シミュレーション実行</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 結果表示セクション -->
+                <div id="results" class="results-section" style="display: none;">
+                    <!-- メインビジュアル -->
+                    <div class="main-result">
+                        <div class="savings-display">
+                            <div class="savings-amount">
+                                <span class="currency">¥</span>
+                                <span id="annual-savings" class="amount">0</span>
+                                <span class="period">年間お得！</span>
+                            </div>
+                            <div class="monthly-savings">
+                                月平均 <span id="monthly-savings">¥0</span> の節約
+                            </div>
+                        </div>
+                        <div class="result-badge">
+                            <span class="badge-icon">🎉</span>
+                            <span class="badge-text">最適プランが見つかりました</span>
+                        </div>
+                    </div>
+
+                    <!-- プラン比較 -->
+                    <div class="plan-comparison">
+                        <h3 class="comparison-title">プラン比較</h3>
+                        <div class="plans-grid">
+                            <div class="plan-card current">
+                                <div class="plan-header">
+                                    <h4 class="plan-name">現在のプラン</h4>
+                                    <div class="plan-type">従来プラン</div>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount" id="current-plan-price">¥8,000</span>
+                                    <span class="price-period">/月</span>
+                                </div>
+                                <ul class="plan-features">
+                                    <li>基本料金あり</li>
+                                    <li>従量料金3段階</li>
+                                    <li>燃料費調整額変動</li>
+                                </ul>
+                            </div>
+
+                            <div class="plan-card recommended">
+                                <div class="plan-badge">おすすめ</div>
+                                <div class="plan-header">
+                                    <h4 class="plan-name">標準プラン</h4>
+                                    <div class="plan-type">新プラン</div>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount" id="standard-plan-price">¥7,200</span>
+                                    <span class="price-period">/月</span>
+                                </div>
+                                <ul class="plan-features">
+                                    <li>基本料金割引</li>
+                                    <li>従量料金優遇</li>
+                                    <li>使用量に応じた割引</li>
+                                </ul>
+                                <button class="plan-cta">このプランで申し込む</button>
+                            </div>
+
+                            <div class="plan-card market">
+                                <div class="plan-header">
+                                    <h4 class="plan-name">市場連動プラン</h4>
+                                    <div class="plan-type">変動プラン</div>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount" id="market-plan-price">¥6,800</span>
+                                    <span class="price-period">/月</span>
+                                </div>
+                                <ul class="plan-features">
+                                    <li>基本料金0円</li>
+                                    <li>時間帯別料金</li>
+                                    <li>市場価格連動</li>
+                                </ul>
+                                <button class="plan-cta secondary">詳細を見る</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 詳細情報 -->
+                    <div class="detailed-results">
+                        <div class="charts-container">
+                            <div class="chart-section">
+                                <h4 class="chart-title">月別料金推移</h4>
+                                <canvas id="monthly-chart"></canvas>
+                            </div>
+                            <div class="chart-section">
+                                <h4 class="chart-title">料金内訳</h4>
+                                <canvas id="breakdown-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="plan-details">
+                            <div class="detail-card">
+                                <h4 class="detail-title">標準プランの特徴</h4>
+                                <div class="detail-content">
+                                    <div class="pros">
+                                        <h5>メリット</h5>
+                                        <ul>
+                                            <li>安定した料金体系</li>
+                                            <li>基本料金の割引あり</li>
+                                            <li>使用量が多いほどお得</li>
+                                            <li>契約期間の縛りなし</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cons">
+                                        <h5>注意点</h5>
+                                        <ul>
+                                            <li>少量使用時のメリット小</li>
+                                            <li>燃料費調整額の変動あり</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About セクション -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">料金プランについて</h2>
+                    <p class="section-description">電力自由化により、様々な料金プランから選択できるようになりました</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">📊</div>
+                        <h3>標準プラン</h3>
+                        <p>安定した料金体系で、多くのご家庭におすすめのプランです。基本料金の割引と従量料金の優遇により、お得にご利用いただけます。</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">📈</div>
+                        <h3>市場連動プラン</h3>
+                        <p>電力市場価格に連動したプランで、基本料金0円が特徴です。電力使用時間を工夫することで大幅な節約が可能です。</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">🔒</div>
+                        <h3>安心のサポート</h3>
+                        <p>切替手続きは無料で、停電などのリスクもありません。24時間365日のサポート体制で安心してご利用いただけます。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="logo">
+                        <span class="logo-icon">⚡</span>
+                        <span class="logo-text">電気料金シミュレーター</span>
+                    </div>
+                    <p class="footer-description">最適な電気プランを見つけて、電気料金を節約しましょう。</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">利用規約</a>
+                        <a href="#" class="footer-link">プライバシーポリシー</a>
+                        <a href="#" class="footer-link">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 電気料金シミュレーター. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ローディングオーバーレイ -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">シミュレーション中...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
